@@ -53,16 +53,6 @@ def determine_total_joltage_part2(banks: list, batteries: int)-> int:
 
 
 
-
-
-
-
-
-
-
-    return total_joltage
-
-
 def main():
     banks = problem_input()
 
