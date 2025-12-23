@@ -27,10 +27,32 @@ def determine_total_joltage(banks: list)-> int:
 def determine_total_joltage_part2(banks: list, batteries: int)-> int:
     total_joltage = 0
     for bank in banks:
-        list_batteries = []
-        for battery in bank:
-            if len(list_batteries) < batteries:
-                list_batteries.append(battery)
+        batts= list(bank)
+
+        result = ""
+        # print(f"bank {bank}: ")
+        for i in range(batteries):
+            bank_len = len(batts)
+
+            if i == batteries-1:
+                max_batt = max(batts)
+                k = 0
+            else:
+                k = bank_len-batteries+i
+                max_batt = max(batts[:k+1])
+
+            result+= max_batt
+            index = batts.index(max_batt)
+            # print(f"Batts: {"".join(batts)}. Max batt: {max_batt} at index: {index}, adjusted by {bank_len-k}")
+
+            batts = batts[index+1:]
+
+        total_joltage += int(result)
+
+    return total_joltage
+
+
+
 
 
 
