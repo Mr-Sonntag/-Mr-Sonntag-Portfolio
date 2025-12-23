@@ -1,0 +1,174 @@
+#include <ctype.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stddef.h>
+#include "myStrings.h"
+
+void main(void) {
+    puts("Testing string library");
+    puts("#####################################################");
+    char s[] = "Hello World\0";
+    char s2[] = "hello world1\0";
+    puts("Test: all_letters");
+    printf("\"%s\" is all_letters: %d. Expected: 0\n", s, all_letters(s));
+    printf("\"%s\" is all_letters: %d. Expected: 1\n", s2, all_letters(s2));
+    puts("");
+    puts("");
+    puts("Test: num_in_range");
+    char b = 'b';
+    char t = 't';
+    printf("String is \"%s\", b=%c, t=%c. num_in_range: %d. Expected: 9", s, b, t, num_in_range(s,b,t));
+    printf("String is \"%s\", b=%c, t=%c. num_in_range: %d. Expected: 9", s2, b, t, num_in_range(s2, b, t));
+    puts("");
+    puts("");
+    puts("Test: diff");
+    printf("Comparing \"%s\" and \"%s\". diff: %d. Expected: 3", s, s2, diff(s, s2));
+    puts("");
+    puts("");
+    puts("Test: shorten");
+    int new_len = 5;
+    printf("Original string: \"%s\". Shortened to length %d. ", s, new_len);
+    shorten(s,new_len);
+    printf("Result: %s", s);
+    puts("");
+    puts("");
+    puts("Test: len_diff");
+    printf("len_diff of \"%s\" and \"%s\". Result: %d. Expected: 7", s2, s, len_diff(s2, s));
+    puts("");
+    puts("");
+    puts("Test: rm_left_space");
+    char leftspace[] = "   this string has left spaces.";
+    printf("Before: \"%s\". ", leftspace);
+    rm_left_space(leftspace);
+    printf("After: \"%s\".", leftspace);
+    puts("");
+    puts("");
+    puts("Test: rm_right_space");
+    char right_space[] = "this string has right spaces.           ";
+    printf("Removing right space from string \"%s\".", right_space);
+    rm_right_space(right_space);
+    printf(" Result: \"%s\"", right_space);
+    puts("");
+    puts("");
+    puts("Test: rm_space");
+    char allspaces[] = "     this string has spaces      ";
+    printf("Before: \"%s\" . ", allspaces);
+    rm_space(allspaces);
+    printf("After: \"%s\"", allspaces);
+    puts("");
+    puts("");
+    puts("Test: find");
+    char target[] = "lo";
+    printf("In string \"%s\", finding index of \"%s\": %d. Expected: 3", s2, target, find(s2, target));
+    puts("");
+    puts("");
+    puts("Test: ptr_to");
+    printf("In string \"%s\", finding pointer to first occurrence of \"%s\".", s2, target);
+    char *found = ptr_to(s2, target);
+    printf("\nFound \"%s\".", found);
+    puts("");
+    puts("");
+    puts("Test: is_empty");
+    char isNull[] = " ";
+    printf("Testing if \"%s\" is empty: %d. Expected: 1.", isNull, is_empty(isNull));
+    puts("");
+    puts("");
+    puts("Test: str_zip");
+    printf("Zipping \"%s\" and \"%s\". ", s, s2);
+    char* zipper = str_zip(s, s2);
+    printf("Zipped: \"%s\"", zipper);
+    puts("");
+    puts("");
+    puts("Test: capitalize");
+    printf("Capitalizing \"%s\". -> ", s2);
+    capitalize(s2);
+    printf("\"%s\".", s2);
+    puts("");
+    puts("");
+    puts("Test: strcmp_ign_case");
+    char apple[] = "apple";
+    char pear[] = "pear";
+    printf("Comparing \"%s\" and \"%s\". Result: %d. Expected: 1", apple, pear, strcmp_ign_case(apple, pear));
+    puts("");
+    puts("");
+    puts("Test: take_last");
+    int last = 5;
+    printf("Taking last %d of \"%s\".", last, s2);
+    take_last(s2, last);
+    printf("Result: %s.", s2);
+    puts("");
+    puts("");
+    puts("Test: dedup");
+    char dedupper[] = "There's always money in the banana stand.";
+    printf("Dedupling \"%s\". Dedup: \"%s\"", dedupper, dedup(dedupper));
+    puts("");
+    puts("");
+    puts("Test: pad");
+    int padding = 50;
+    printf("pad \"%s\" with pad %d. ", dedupper, padding);
+    printf("Result: \"%s\"", pad(dedupper, padding));
+    puts("");
+    puts("");
+    puts("Test: ends_with_ignore_case");
+    char theString[] = "Helping";
+    char theCase[] = "ing";
+    printf("The string \"%s\" with case \"%s\". Result: %d. Expected: 1", theString, theCase, ends_with_ignore_case(theString, theCase));
+    puts("");
+    puts("");
+    puts("Test: repeat");
+    int repeater = 5;
+    char repeated[] = "all right";
+    char sep = ',';
+    printf("Repeating \"%s\" with repeat %d and seperator '%c'. Result: %s", repeated, repeater, sep, repeat(repeated, repeater, sep));
+    puts("");
+    puts("");
+    puts("Test: replace");
+    char pat[] = "l";
+    char rep[] = "lio";
+    printf("Replacing string \"%s\" each instance of \"%s\" with \"%s\". Result: %s", repeated, pat, rep, replace(repeated, pat, rep));
+    puts("");
+    puts("");
+    puts("Test: str_connect");
+    char* unconnected[] = {"This", "is", "not", "connected"};
+    printf("Connecting the string: \"");
+    for (int i = 0; i < 4; i++) {
+        printf("%s ", unconnected[i]);
+    }
+    int n = 3;
+    char c = '+';
+    printf("\" first %d with seperator '%c'. ", n, c);
+    printf("Result: \"%s\".", str_connect(unconnected, n, c));
+    puts("");
+    puts("");
+    puts("Test: rm_empties");
+    char *isthereEmpty[] = {"first", "", "second", "", "" , "third", "", "", "fourth", "", NULL};
+    int i = 0;
+    printf("Before rm_empties: \"");
+    while (isthereEmpty[i] != NULL) {
+        printf("%s ", isthereEmpty[i]);
+        i++;
+    }
+    printf("\" After rm_empties: ");
+    rm_empties(isthereEmpty);
+    i = 0;
+    while (isthereEmpty[i] != NULL) {
+        printf("%s ", isthereEmpty[i]);
+        i++;
+    }
+    puts("");
+    puts("");
+    puts("Test: str_chop_all");
+    char choppy[] = "This+String+Should+Be+Chopped";
+    char delim = '+';
+    printf("Chopping \"%s\" based on delimiter '%c'. After Chopping: ", choppy, delim);
+    char **res = str_chop_all(choppy, '+');
+    i = 0;
+    while (res[i] != NULL) {
+        printf("%s ", res[i]);
+        i++;
+    }
+    puts("");
+    puts("");
+    puts("Testing Complete.");
+    puts("##################################################");
+}
